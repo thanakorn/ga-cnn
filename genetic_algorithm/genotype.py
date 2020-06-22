@@ -1,5 +1,5 @@
 import torch
-
+import copy
 from logging import Logger
 from genetic_algorithm.chromosomes import ChromosomeSchema, ConvChromosome, LinearChromosome
 
@@ -17,3 +17,5 @@ class NetworkGenotype():
                 self.chromosomes[f'{name}.weight'] = torch.rand((out_feature, in_feature))
                 self.chromosomes[f'{name}.bias'] = torch.rand(out_feature)
                 
+    def clone(self):
+        return copy.deepcopy(self)

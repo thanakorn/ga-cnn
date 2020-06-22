@@ -35,3 +35,20 @@ class NetworkGenotypeTest(unittest.TestCase):
         self.assertTrue(torch.Size([16]) == conv1_bias.shape)
         self.assertTrue(torch.Size([2, 12]) == fc1_weight.shape)
         self.assertTrue(torch.Size([2]) == fc1_bias.shape)
+        
+    def test_network_genotype_clone(self):
+        network_schema = {
+            'conv1': ConvChromosome(3,16,4,2),
+            'fc1': LinearChromosome(12,2)
+        }
+        genotype = NetworkGenotype(network_schema)
+        chromosomes = genotype.chromosomes
+        clone_genotype = genotype.clone()
+        cloned_chromosomes = clone_genotype.chromosomes
+        self.assertTrue(genotype.schema == clone_genotype.schema)
+        self.assertTrue(torch.equal(chromosomes['conv1.weight'], cloned_chromosomes['conv1.weight']))
+        self.assertTrue(torch.equal(chromosomes['conv1.bias'], cloned_chromosomes['conv1.bias']))
+        self.assertTrue(torch.equal(chromosomes['fc1.weight'], cloned_chromosomes['fc1.weight']))
+        self.assertTrue(torch.equal(chromosomes['fc1.bias'], cloned_chromosomes['fc1.bias']))
+        clone_genotype.chromosomes['fc1.bias'][0] = 0.
+        self.assertFalse(torch.equal(chromosomes['fc1.bias'], cloned_chromosomes['fc1.bias'])) # Ensure deepcopy
