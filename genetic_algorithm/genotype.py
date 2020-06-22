@@ -15,5 +15,5 @@ class NetworkGenotype():
             elif isinstance(chromosome, LinearChromosome):
                 in_feature, out_feature = chromosome
                 self.chromosomes[f'{name}.weight'] = torch.rand((out_feature, in_feature))
-                self.chromosomes[f'{name}.bias'] = torch.rand(out_feature, in_feature)
+                self.chromosomes[f'{name}.bias'] = torch.rand(out_feature)
                 
