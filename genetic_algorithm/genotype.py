@@ -10,8 +10,10 @@ class NetworkGenotype():
         for name, chromosome in schema.items():
             if isinstance(chromosome, ConvChromosome):
                 in_channel, out_channel, kernel_size = chromosome
-                self.chromosomes[name] = torch.rand((out_channel, in_channel, kernel_size, kernel_size))
+                self.chromosomes[f'{name}.weight'] = torch.rand((out_channel, in_channel, kernel_size, kernel_size))
+                self.chromosomes[f'{name}.bias'] = torch.rand(out_channel)
             elif isinstance(chromosome, LinearChromosome):
                 in_feature, out_feature = chromosome
-                self.chromosomes[name] = torch.rand((out_feature, in_feature))
+                self.chromosomes[f'{name}.weight'] = torch.rand((out_feature, in_feature))
+                self.chromosomes[f'{name}.bias'] = torch.rand(out_feature, in_feature)
                 
