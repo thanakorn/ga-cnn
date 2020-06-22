@@ -9,7 +9,7 @@ class NetworkGenotype():
         self.chromosomes = {}
         for name, chromosome in schema.items():
             if isinstance(chromosome, ConvChromosome):
-                in_channel, out_channel, kernel_size = chromosome
+                in_channel, out_channel, kernel_size, _ = chromosome
                 self.chromosomes[f'{name}.weight'] = torch.rand((out_channel, in_channel, kernel_size, kernel_size))
                 self.chromosomes[f'{name}.bias'] = torch.rand(out_channel)
             elif isinstance(chromosome, LinearChromosome):

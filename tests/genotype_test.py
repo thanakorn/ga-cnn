@@ -6,8 +6,8 @@ from genetic_algorithm.genotype import NetworkGenotype
 class NetworkGenotypeTest(unittest.TestCase):
     def test_network_genotype_create_parameters(self):
         network_schema = {
-            'conv1': ConvChromosome(3,16,4),
-            'conv2': ConvChromosome(16,32,5),
+            'conv1': ConvChromosome(3,16,4,4),
+            'conv2': ConvChromosome(16,32,5,2),
             'fc1': LinearChromosome(12,8),
             'fc2': LinearChromosome(8,2),
         }
@@ -23,7 +23,7 @@ class NetworkGenotypeTest(unittest.TestCase):
         
     def test_network_genotype_parameter_dimension(self):
         network_schema = {
-            'conv1': ConvChromosome(3,16,4),
+            'conv1': ConvChromosome(3,16,4,2),
             'fc1': LinearChromosome(12,2)
         }
         network_genotype = NetworkGenotype(network_schema)
