@@ -11,6 +11,15 @@ schema = {
 }
     
 class OpetatorTest(unittest.TestCase):
+    
+    def test_select_elites(self):
+        genotypes = [NetworkGenotype(schema) for i in range(7)]
+        fitnesses = [0.01, 1.0, 0.8, 0.2, 0.9, 0.75, 0.2]
+        elites = select_elites(genotypes, fitnesses, 3)
+        self.assertEqual(elites[0], genotypes[2])
+        self.assertEqual(elites[1], genotypes[4])
+        self.assertEqual(elites[2], genotypes[1])
+    
     def test_mutation(self):
         parent = NetworkGenotype(schema)
         child = mutate(parent)
