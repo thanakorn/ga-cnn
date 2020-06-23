@@ -27,3 +27,8 @@ class OpetatorTest(unittest.TestCase):
         self.assertFalse(torch.equal(parent.chromosomes['conv.bias'], child.chromosomes['conv.weight']))
         self.assertFalse(torch.equal(parent.chromosomes['fc.weight'], child.chromosomes['fc.weight']))
         self.assertFalse(torch.equal(parent.chromosomes['fc.bias'], child.chromosomes['fc.weight']))
+        
+    def test_gen_population_mutation(self):
+        parents = [NetworkGenotype(schema) for i in range(5)]
+        children = gen_population_mutation(parents, 50)
+        self.assertEqual(len(children), 50)
