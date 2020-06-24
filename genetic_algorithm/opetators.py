@@ -8,16 +8,15 @@ def select_elites(populations: List[NetworkGenotype], fitnesses, n) -> List[Netw
     elites = [populations[i] for i in elite_idx]
     return elites
 
-def mutate(genotype: NetworkGenotype, mutation_power=0.01) -> NetworkGenotype:
+def mutate(genotype: NetworkGenotype, mutation_power) -> NetworkGenotype:
     child = genotype.clone()
     for _, chromosome in child.chromosomes.items():
         chromosome += mutation_power * torch.randn(chromosome.shape)
     return child
 
-def gen_population_mutation(parents: List[NetworkGenotype], n):
+def gen_population_mutation(parents: List[NetworkGenotype], n, mutation_power=0.01):
         new_generation = []
         K = np.random.randint(0, len(parents), n)
         parents = [parents[k] for k in K]
-        for p in parents:
-            new_generation.append(mutate(p))
+        for p in parents: new_generation.append(mutate(p, mutation_power))
         return new_generation
