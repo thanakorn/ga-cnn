@@ -30,3 +30,12 @@ def gen_population_mutation(parents: List[NetworkGenotype], n, mutation_power=0.
     parents = [parents[k] for k in K]
     for p in parents: new_generation.append(mutate(p, mutation_power))
     return new_generation
+
+def gen_population_crossover(parents: List[NetworkGenotype], n):
+    new_generation = []
+    num_parents = len(parents)
+    for i in range(n):
+        a, b = np.random.randint(0, num_parents, 2)
+        while a == b: a, b = np.random.randint(0, num_parents, 2)
+        new_generation.append(crossover(parents[a], parents[b]))
+    return new_generation

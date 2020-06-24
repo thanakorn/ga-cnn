@@ -66,3 +66,8 @@ class OpetatorTest(unittest.TestCase):
             torch.equal(parent_1.chromosomes['fc.bias'], child.chromosomes['fc.bias']) or 
             torch.equal(parent_2.chromosomes['fc.bias'], child.chromosomes['fc.bias'])
         )
+        
+    def test_gen_population_crossover(self):
+        parents = [NetworkGenotype(schema) for i in range(5)]
+        children = gen_population_crossover(parents, 10)
+        self.assertEqual(len(children), 10)

@@ -35,7 +35,11 @@ class GeneticAlgorithm():
             if gen == 0:
                 populations = self.populations
             else:
-                populations = gen_population_mutation(elites, n=self.num_populations - 1, mutation_power=1.0)
+                populations = []
+                mutation_populations = gen_population_mutation(elites, n=int(self.num_populations / 2) - 1, mutation_power=1.0)
+                crossover_populations = gen_population_crossover(elites, n=int(self.num_populations / 2))
+                populations.extend(mutation_populations)
+                populations.extend(crossover_populations)
                 populations.append(best)
             
             # Evaluate fitness concurrently
