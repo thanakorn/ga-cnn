@@ -12,7 +12,7 @@ class FitnessEvaluator():
         raise NotImplementedError()
     
 class DatasetFitnessEvaluator():
-    def __init__(self, dataset, batch_size=128, shuffle=True, num_workers=1):
+    def __init__(self, dataset, batch_size=128, shuffle=True, num_workers=0):
         self.dataset = dataset
         self.batch_size = batch_size
         self.shuffle = shuffle
