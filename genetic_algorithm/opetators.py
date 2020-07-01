@@ -32,6 +32,7 @@ def gen_population_mutation(parents: List[NetworkGenotype], n, mutation_power=0.
     return new_generation
 
 def gen_population_crossover(parents: List[NetworkGenotype], n):
+    assert len(parents) >= 2, "Number of parents must be more than 2"
     new_generation = []
     num_parents = len(parents)
     for i in range(n):
