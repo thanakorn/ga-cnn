@@ -12,19 +12,21 @@ class FitnessEvaluator():
         raise NotImplementedError()
     
 class DatasetFitnessEvaluator():
-    def __init__(self, dataset, batch_size=128, shuffle=True, num_workers=0):
+    def __init__(self, dataset, batch_size=128, shuffle=True, num_workers=0, device='cpu'):
         self.dataset = dataset
         self.batch_size = batch_size
         self.shuffle = shuffle
         self.num_workers = num_workers
+        self.device = device
         
     def eval_fitness(self, model_type: T, genotype: NetworkGenotype):
         fitness = 0.
-        model = model_type(genotype)
+        model = model_type(genotype).to(self.device)
         model.eval()
         dataloader = DataLoader(dataset=self.dataset, batch_size=self.batch_size, 
                                 shuffle=self.shuffle, num_workers=self.num_workers)
-        for inputs, labels in dataloader:
+        for data in dataloader:
+            inputs, labels = data[0].to(self.device), data[1].to(self.device)
             predicts = model(inputs)
             predicts = torch.argmax(predicts, dim=1)
             fitness += (predicts == labels).sum()
